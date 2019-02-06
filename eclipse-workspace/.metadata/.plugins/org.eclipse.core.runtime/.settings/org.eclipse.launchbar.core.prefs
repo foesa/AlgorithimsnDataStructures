@@ -1,0 +1,17 @@
+LaunchTargetManager/configs/BSTTest=org.eclipse.launchbar.core.launchTargetType.local\:Local
+LaunchTargetManager/configs/altTest=org.eclipse.launchbar.core.launchTargetType.local\:Local
+LaunchTargetManager/configs/decode=org.eclipse.launchbar.core.launchTargetType.local\:Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=linux
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:Tests,org.eclipse.launchbar.core.descriptorType.default\:Collections,org.eclipse.launchbar.core.descriptorType.default\:CollinearTest,org.eclipse.launchbar.core.descriptorType.default\:Collinear,org.eclipse.launchbar.core.descriptorType.default\:DoublyLinkedListTest,org.eclipse.launchbar.core.descriptorType.default\:altTest,org.eclipse.launchbar.core.descriptorType.default\:decode,org.eclipse.launchbar.core.descriptorType.default\:BST,org.eclipse.launchbar.core.descriptorType.default\:BSTTest
+eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:BST/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:BSTTest/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:BSTTest/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:DoublyLinkedListTest/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:Tests/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:Tests/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:altTest/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:decode/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:decode/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
