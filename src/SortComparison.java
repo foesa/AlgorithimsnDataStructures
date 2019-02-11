@@ -38,19 +38,24 @@ class SortComparison {
      *
      */
     static double [] quickSort (double a[]){
-        int low = 0
+        int low = 0;
         int high = a.length-1;
         a = quicksort(a,low,high);
         return a;
-    }//end quicksor
+    }//end quicksort
+
     static double[] quicksort(double arr [],int low, int high){
         if (low<high){
-            double part = partition(arr,low,high);
+            int part = partition(arr,low,high);
+            quicksort(arr, low,part-1);
+            quicksort(arr,part+1,high);
         }
+        return arr;
     }
+
     private static int partition(double arr[],int low,int high){
         double pivot = arr[(int)high];
-        int i = ((low -1);
+        int i = low -1;
         for(int count = low;count <high;count++){
             if(arr[count]<= pivot){
                 i++;
