@@ -211,23 +211,21 @@ class SortComparison {
         int n1 = m - left + 1;
         int n2 = right - m;
 
-        /* Create temp arrays */
+
         double L[] = new double[n1];
         double R[] = new double [n2];
 
-        /*Copy data to temp arrays*/
+
         for (int i=0; i<n1; ++i)
             L[i] = arr[left + i];
         for (int j=0; j<n2; ++j)
             R[j] = arr[m + 1+ j];
 
 
-        /* Merge the temp arrays */
 
-        // Initial indexes of first and second subarrays
         int i = 0, j = 0;
 
-        // Initial index of merged subarry array
+
         int k = left;
         while (i < n1 && j < n2)
         {
@@ -244,7 +242,7 @@ class SortComparison {
             k++;
         }
 
-        /* Copy remaining elements of L[] if any */
+
         while (i < n1)
         {
             arr[k] = L[i];
@@ -252,7 +250,7 @@ class SortComparison {
             k++;
         }
 
-        /* Copy remaining elements of R[] if any */
+
         while (j < n2)
         {
             arr[k] = R[j];
@@ -270,8 +268,20 @@ class SortComparison {
      * @return array sorted in ascending order
      */
     static double[] selectionSort(double a[]) {
+        int n = a.length;
 
-        //todo: implement the sort
+
+        for (int i = 0; i < n-1; i++)
+        {
+            int min = i;
+            for (int j = i+1; j < n; j++) {
+                if (a[j] < a[min])
+                    min = j;
+            }
+            double temp = a[min];
+            a[min] = a[i];
+            a[i] = temp;
+        }
 
     }//end selectionsort
 
