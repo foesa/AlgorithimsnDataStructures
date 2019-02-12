@@ -18,6 +18,9 @@ class SortComparison {
      * @return array sorted in ascending order.
      */
     static double[] insertionSort(double a[]) {
+        if(a.length == 0){
+            return null;
+        }
         for (int count = 0; count < a.length; count++) {
             double move = a[count];
             for (int comp = count + 1; comp < a.length; comp++) {
@@ -38,13 +41,16 @@ class SortComparison {
      * @return array sorted in ascending order
      */
     static double[] quickSort(double a[]) {
+        if(a.length == 0){
+            return null;
+        }
         int low = 0;
         int high = a.length - 1;
         a = quicksort(a, low, high);
         return a;
     }//end quicksort
 
-    static double[] quicksort(double arr[], int low, int high) {
+    private static double[] quicksort(double arr[], int low, int high) {
         if (low < high) {
             int part = partition(arr, low, high);
             quicksort(arr, low, part - 1);
@@ -90,7 +96,9 @@ class SortComparison {
      */
 
     static double[] mergeSortIterative(double a[]) {
-
+        if(a.length == 0){
+            return null;
+        }
         int current;
         int leftStart;
         int arraySize = a.length - 1;
@@ -104,10 +112,11 @@ class SortComparison {
             }
 
         }
+        return a;
 
     }//end mergesortIterative
 
-    public static int getMin(int left, int right) {
+    private static int getMin(int left, int right) {
         if (left <= right) {
             return left;
         } else {
@@ -115,7 +124,7 @@ class SortComparison {
         }
     }
 
-    public static void MergeSort(int[] array) {
+    private static void MergeSort(double[] array) {
         int current;
         int leftStart;
         int arraySize = array.length;
@@ -130,18 +139,12 @@ class SortComparison {
         }
     }
 
-    static void printArray(int A[]) {
-        int i;
-        for (i = 0; i < A.length; i++)
-            System.out.println(A[i]);
-    }
-
-    static void mergeArray(int array[], int left, int mid, int right) {
+    private static void mergeArray(double array[], int left, int mid, int right) {
         int leftArraySize = mid - left + 1;
         int rightArraySize = right - mid;
 
-        int[] leftArray = new int[leftArraySize];
-        int[] rightArray = new int[rightArraySize];
+        double[] leftArray = new double[leftArraySize];
+        double[] rightArray = new double[rightArraySize];
 
         for (int i = 0; i < leftArraySize; i++)
             leftArray[i] = array[left + i];
@@ -186,13 +189,16 @@ class SortComparison {
      * @return after the method returns, the array must be in ascending sorted order.
      */
     static double[] mergeSortRecursive(double a[]) {
+        if(a.length == 0){
+            return null;
+        }
         int left = 0;
         int right = a.length-1;
         mergeSortRecursive(a,left,right);
-
+        return a;
     }//end mergeSortRecursive
 
-    static void mergeSortRecursive(double a[],int left,int right){
+    private static void mergeSortRecursive(double a[],int left,int right){
         if (left < right)
         {
 
@@ -207,7 +213,7 @@ class SortComparison {
         }
     }
 
-    static void merge(double arr[], int left, int m, int right){
+    private static void merge(double arr[], int left, int m, int right){
         int n1 = m - left + 1;
         int n2 = right - m;
 
@@ -268,6 +274,9 @@ class SortComparison {
      * @return array sorted in ascending order
      */
     static double[] selectionSort(double a[]) {
+        if(a.length == 0){
+            return null;
+        }
         int n = a.length;
 
 
@@ -282,7 +291,7 @@ class SortComparison {
             a[min] = a[i];
             a[i] = temp;
         }
-
+        return a;
     }//end selectionsort
 
     public static void main(String[] args) {
