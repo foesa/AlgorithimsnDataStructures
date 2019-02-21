@@ -99,95 +99,65 @@ class SortComparison {
         if(a.length == 0){
             return null;
         }
-        int current;
-        int leftStart;
-        int arraySize = a.length - 1;
-        for (current = 1; current <= arraySize; current = 2 * current) {
-            for (leftStart = 0; leftStart <= arraySize; leftStart += 2 * current) {
-
-                int mid = leftStart + current - 1;
-                int right = getMin(leftStart + 2 * current - 1, arraySize);
-
-                mergeArray(a, leftStart, mid, right);
+        int n = a.length;
+        int curr_size;
+        int left_start;
+        for (curr_size = 1; curr_size <= n-1;
+             curr_size = 2*curr_size)
+        {
+            for (left_start = 0; left_start < n-1;
+                 left_start += 2*curr_size)
+            {
+                int mid = left_start + curr_size - 1;
+                int right_end = Math.min(left_start + 2*curr_size - 1, n-1);
+                merge(a, left_start, mid, right_end);
             }
-
         }
         return a;
-
     }//end mergesortIterative
 
-    private static int getMin(int left, int right) {
-        if (left <= right) {
-            return left;
-        } else {
-            return right;
-        }
-    }
-
-    private static void MergeSort(double[] array) {
-        int current;
-        int leftStart;
-        int arraySize = array.length;
-        for (current = 1; current <= arraySize - 1; current = 2 * current) {
-            for (leftStart = 0; leftStart < arraySize - 1; leftStart += 2 * current) {
-
-                int mid = leftStart + current - 1;
-                int right = getMin(leftStart + 2 * current - 1, arraySize - 1);
-
-                mergeArray(array, leftStart, mid, right);
-            }
-        }
-    }
-
-    private static void mergeArray(double array[], int left, int mid, int right) {
-        int leftArraySize = mid - left + 1;
-        int rightArraySize = right - mid;
-
-        double[] leftArray = new double[leftArraySize];
-        double[] rightArray = new double[rightArraySize];
-
-        for (int i = 0; i < leftArraySize; i++)
-            leftArray[i] = array[left + i];
-        for (int j = 0; j < rightArraySize; j++)
-            rightArray[j] = array[mid + 1 + j];
-
-        int leftPtr = 0;
-        int rightPtr = 0;
-        int tempPtr = left;
-        while (leftPtr < leftArraySize && rightPtr < rightArraySize) {
-            if (leftArray[leftPtr] <= rightArray[rightPtr]) {
-                array[tempPtr] = leftArray[leftPtr];
-                leftPtr++;
+    static void merge(double a[], int l, int m, int r) {
+        int i, j, k;
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        double L[] = new double[n1];
+        double R[] = new double[n2];
+        for (i = 0; i < n1; i++)
+            L[i] = a[l + i];
+        for (j = 0; j < n2; j++)
+            R[j] = a[m + 1 + j];
+        i = 0;
+        j = 0;
+        k = l;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                a[k] = L[i];
+                i++;
             } else {
-                array[tempPtr] = rightArray[rightPtr];
-                rightPtr++;
+                a[k] = R[j];
+                j++;
             }
-            tempPtr++;
+            k++;
         }
-
-        while (leftPtr < leftArraySize) {
-            array[tempPtr++] = leftArray[leftPtr++];
-
-            leftPtr++;
-            tempPtr++;
+        while (i < n1) {
+            a[k] = L[i];
+            i++;
+            k++;
         }
-
-        while (rightPtr < rightArraySize) {
-            array[tempPtr++] = rightArray[rightPtr++];
-
-            rightPtr++;
-            tempPtr++;
+        while (j < n2) {
+            a[k] = R[j];
+            j++;
+            k++;
         }
     }
 
-
-    /**
-     * Sorts an array of doubles using recursive implementation of Merge Sort.
-     * This method is static, thus it can be called as SortComparison.sort(a)
-     *
-     * @param a: An unsorted array of doubles.
-     * @return after the method returns, the array must be in ascending sorted order.
-     */
+        /**
+         * Sorts an array of doubles using recursive implementation of Merge Sort.
+         * This method is static, thus it can be called as SortComparison.sort(a)
+         *
+         * @param a: An unsorted array of doubles.
+         * @return after the method returns, the array must be in ascending sorted order.
+         */
     static double[] mergeSortRecursive(double a[]) {
         if(a.length == 0){
             return null;
@@ -209,11 +179,11 @@ class SortComparison {
             mergeSortRecursive(a , m+1, right);
 
 
-            merge(a, left, m, right);
+            merger(a, left, m, right);
         }
     }
 
-    private static void merge(double arr[], int left, int m, int right){
+    private static void merger(double arr[], int left, int m, int right){
         int n1 = m - left + 1;
         int n2 = right - m;
 

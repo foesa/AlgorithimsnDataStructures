@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNull;
 /**
  *  Test class for SortComparison.java
  *
- *  @author
+ *  @author : efeosa eguavoen 17324649
  *  @version HT 2019
  */
 @RunWith(JUnit4.class)
@@ -52,11 +52,12 @@ public class SortComparisonTestTest
             a[count] = (double)rand.nextInt(20);
         }
         double[] b =a;
+        System.out.println(Arrays.toString(b));
         Arrays.sort(a);
         assertEquals("Expected to sort as follows"+Arrays.toString(a),a,sorter.insertionSort(b));
     }
 
-    @Test
+   /* @Test
     public void testMergeIterative(){
         SortComparison sorter = new SortComparison();
         double[] a = new double[10];
@@ -67,7 +68,8 @@ public class SortComparisonTestTest
         double[] b =a;
         Arrays.sort(a);
         assertEquals("Expected to sort as follows"+Arrays.toString(a),a,sorter.mergeSortIterative(b));
-    }
+        System.out.println(Arrays.toString(a));
+    }*/
 
     @Test
     public void testMergeRecursive(){
