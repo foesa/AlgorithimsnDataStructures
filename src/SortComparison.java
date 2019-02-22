@@ -21,14 +21,17 @@ class SortComparison {
         if(a.length == 0){
             return null;
         }
-        for (int count = 0; count < a.length; count++) {
-            double move = a[count];
-            for (int comp = count + 1; comp < a.length; comp++) {
-                if (move > a[comp]) {
-                    a[count] = a[comp];
-                    a[comp] = move;
-                }
+        int n = a.length;
+        for (int curr=1; curr<n; curr++)
+        {
+            double num = a[curr];
+            int curnum = curr-1;
+            while (curnum>=0 && a[curnum] > num)
+            {
+                a[curnum+1] = a[curnum];
+                curnum = curnum-1;
             }
+            a[curnum+1] = num;
         }
         return a;
     }
@@ -102,11 +105,9 @@ class SortComparison {
         int n = a.length;
         int curr_size;
         int left_start;
-        for (curr_size = 1; curr_size <= n-1;
-             curr_size = 2*curr_size)
+        for (curr_size = 1; curr_size <= n-1; curr_size = 2*curr_size)
         {
-            for (left_start = 0; left_start < n-1;
-                 left_start += 2*curr_size)
+            for (left_start = 0; left_start < n-1; left_start += 2*curr_size)
             {
                 int mid = left_start + curr_size - 1;
                 int right_end = Math.min(left_start + 2*curr_size - 1, n-1);

@@ -5,8 +5,7 @@ import org.junit.runners.JUnit4;
 import java.util.Arrays;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 //-------------------------------------------------------------------------
 /**
@@ -51,13 +50,14 @@ public class SortComparisonTestTest
         for(int count =0;count<a.length;count++){
             a[count] = (double)rand.nextInt(20);
         }
-        double[] b =a;
+        double[] b = new double[a.length];
+        b = Arrays.copyOf(a,a.length);
         System.out.println(Arrays.toString(b));
         Arrays.sort(a);
-        assertEquals("Expected to sort as follows"+Arrays.toString(a),a,sorter.insertionSort(b));
+        assertArrayEquals(a,sorter.insertionSort(b),0);
     }
 
-   /* @Test
+   @Test
     public void testMergeIterative(){
         SortComparison sorter = new SortComparison();
         double[] a = new double[10];
@@ -65,11 +65,12 @@ public class SortComparisonTestTest
         for(int count =0;count<a.length;count++){
             a[count] = (double)rand.nextInt(20);
         }
-        double[] b =a;
+        double[] b = new double[a.length];
+        b = Arrays.copyOf(a,a.length);
         Arrays.sort(a);
-        assertEquals("Expected to sort as follows"+Arrays.toString(a),a,sorter.mergeSortIterative(b));
+        assertArrayEquals(a,sorter.mergeSortIterative(b),0);
         System.out.println(Arrays.toString(a));
-    }*/
+    }
 
     @Test
     public void testMergeRecursive(){
@@ -79,9 +80,10 @@ public class SortComparisonTestTest
         for(int count =0;count<a.length;count++){
             a[count] = (double)rand.nextInt(20);
         }
-        double[] b =a;
+        double[] b = new double[a.length];
+        b = Arrays.copyOf(a,a.length);
         Arrays.sort(a);
-        assertEquals("Expected to sort as follows"+Arrays.toString(a),a,sorter.mergeSortRecursive(b));
+        assertArrayEquals(a,sorter.mergeSortRecursive(b),0);
     }
 
     @Test
@@ -92,9 +94,10 @@ public class SortComparisonTestTest
         for(int count =0;count<a.length;count++){
             a[count] = (double)rand.nextInt(20);
         }
-        double[] b =a;
+        double[] b = new double[a.length];
+        b = Arrays.copyOf(a,a.length);
         Arrays.sort(a);
-        assertEquals("Expected to sort as follows"+Arrays.toString(a),a,sorter.quickSort(b));
+        assertArrayEquals(a,sorter.quickSort(b),0);
     }
 
     @Test
@@ -105,9 +108,10 @@ public class SortComparisonTestTest
         for(int count =0;count<a.length;count++){
             a[count] = (double)rand.nextInt(20);
         }
-        double[] b =a;
+        double[] b = new double[a.length];
+        b = Arrays.copyOf(a,a.length);
         Arrays.sort(a);
-        assertEquals("Expected to sort as follows"+Arrays.toString(a),a,sorter.selectionSort(b));
+        assertArrayEquals(a,sorter.selectionSort(b),0);
     }
     //  add more tests here. Each line of code and ech decision in Collinear.java should
     // be executed at least once from at least one test.
