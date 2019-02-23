@@ -121,7 +121,17 @@ public class SortComparisonTestTest
     //  add more tests here. Each line of code and ech decision in Collinear.java should
     // be executed at least once from at least one test.
     // ----------------------------------------------------------
-    public ArrayList<Long> timer = new
+    public ArrayList<Long> timer(double[] numbers){
+        ArrayList<Long> times = new ArrayList<Long>();
+        int index = 0;
+        long start;
+        long end;
+        long duration;
+        SortComparison sorter = new SortComparison();
+        for(int count =0;count <4;count++){
+
+        }
+    }
     /**
      *  Main Method.
      *  Use this main method to create the experiments needed to answer the experimental performance questions of this assignment.
@@ -139,19 +149,7 @@ public class SortComparisonTestTest
             a[i] = num;
             i++;
         }
-        ArrayList<Long> times = new ArrayList<Long>();
-        int index = 0;
-        long start = null;
-        long end = null;
-        long duration = null;
-        SortComparison sorter = new SortComparison();
-        for(int count =0;count <4;count++){
-            start = System.nanoTime();
-            sorter.insertionSort(a);
-            end = System.nanoTime();
-            duration = end-start;
-            A
-        }
+
     }
 
 }
