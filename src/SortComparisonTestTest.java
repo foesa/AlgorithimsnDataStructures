@@ -2,11 +2,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -122,42 +117,7 @@ public class SortComparisonTestTest
     //  add more tests here. Each line of code and ech decision in Collinear.java should
     // be executed at least once from at least one test.
     // ----------------------------------------------------------
-    public static ArrayList<Long> timer(double[] numbers){
-        ArrayList<Long> times = new ArrayList<Long>();
-        int index = 0;
-        long start;
-        long end;
-        long duration;
-        SortComparison sorter = new SortComparison();
-        for(int count =0;count <4;count++){
-            start = System.nanoTime();
-            sorter.insertionSort(numbers);
-            end = System.nanoTime();
-            duration = end-start;
-            times.add(duration);
-            start = System.nanoTime();
-            sorter.quickSort(numbers);
-            end = System.nanoTime();
-            duration = end-start;
-            times.add(duration);
-            start = System.nanoTime();
-            sorter.mergeSortIterative(numbers);
-            end = System.nanoTime();
-            duration = end-start;
-            times.add(duration);
-            start = System.nanoTime();
-            sorter.mergeSortRecursive(numbers);
-            end = System.nanoTime();
-            duration = end-start;
-            times.add(duration);
-            start = System.nanoTime();
-            sorter.selectionSort(numbers);
-            end = System.nanoTime();
-            duration = end-start;
-            times.add(duration);
-        }
-        return times;
-    }
+
     /**
      *  Main Method.
      *  Use this main method to create the experiments needed to answer the experimental performance questions of this assignment.
@@ -165,27 +125,7 @@ public class SortComparisonTestTest
      */
     public static void main(String[] args)
     {
-        int i =0;
-        double []a = new double[10];
-        try{
-            BufferedReader reader = new BufferedReader( new FileReader("/home/foesa/Documents/numbers10.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                double num = Double.parseDouble(line);
-                a[i] = num;
-                i++;
-            }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        ArrayList<Long> times = timer(a);
-        for(Long time:times){
-            System.out.print(" "+time);
-        }
+
     }
 
 }

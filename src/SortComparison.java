@@ -1,5 +1,11 @@
 // -------------------------------------------------------------------------
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  * This class contains static methods that implementing sorting of an array of numbers
  * using different sort algorithms.
@@ -252,9 +258,101 @@ class SortComparison {
         return a;
     }//end selectionsort
 
-    public static void main(String[] args) {
-
-        //todo: do experiments as per assignment instructions
+    public static ArrayList<Long> timer(double[] numbers){
+        ArrayList<Long> times = new ArrayList<Long>();
+        int index = 0;
+        long start;
+        long end;
+        long duration;
+        SortComparison sorter = new SortComparison();
+        for(int count =0;count <3;count++){
+            start = System.nanoTime();
+            sorter.insertionSort(numbers);
+            end = System.nanoTime();
+            duration = end-start;
+            times.add(duration);
+            start = System.nanoTime();
+            sorter.quickSort(numbers);
+            end = System.nanoTime();
+            duration = end-start;
+            times.add(duration);
+            start = System.nanoTime();
+            sorter.mergeSortIterative(numbers);
+            end = System.nanoTime();
+            duration = end-start;
+            times.add(duration);
+            start = System.nanoTime();
+            sorter.mergeSortRecursive(numbers);
+            end = System.nanoTime();
+            duration = end-start;
+            times.add(duration);
+            start = System.nanoTime();
+            sorter.selectionSort(numbers);
+            end = System.nanoTime();
+            duration = end-start;
+            times.add(duration);
+        }
+        return times;
     }
 
-}//end class
+    public static void main(String[] args) {
+        int i =0;
+        double []a = new double[10];
+        try{
+            BufferedReader reader = new BufferedReader( new FileReader("/home/foesa/Documents/numbers10.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                double num = Double.parseDouble(line);
+                a[i] = num;
+                i++;
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Long> times = timer(a);
+        Long [] finalTimes = new Long[5];
+        for(int count =0;count<3;count++){
+            if(count<=0){
+                finalTimes[0] =+ times.get(count*5);
+            }
+        }
+        for(int count =0;count<3;count++){
+            if(count ==0){
+                finalTimes[1] =+ times.get(1);
+            }
+            else{
+                finalTimes[1] =+ times.get((count*5)-1);
+            }
+        }
+        for(int count =0;count<3;count++){
+            if(count ==0){
+                finalTimes[2] =+ times.get(2);
+            }
+            else {
+                finalTimes[2] =+ times.get((count*5)-2);
+            }
+        }
+        for(int count =0;count<3;count++){
+            if(count == 0){
+                finalTimes[3] =+ times.get(3);
+            }
+            else{
+                finalTimes[3] =+ times.get((count*5)-3);
+            }
+        }
+        for(int count =0;count<3;count++){
+            if(count ==0){
+                finalTimes[4] =+ times.get(4);
+            }
+            finalTimes[4] =+ times.get((count*5)-4);
+        }
+        for(Long time:finalTimes){
+            System.out.print(" "+time);
+        }
+    }
+
+}
