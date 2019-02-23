@@ -102,54 +102,41 @@ class SortComparison {
         if(a.length == 0){
             return null;
         }
-        int n = a.length;
-        int curr_size;
-        int left_start;
-        for (curr_size = 1; curr_size <= n-1; curr_size = 2*curr_size)
-        {
-            for (left_start = 0; left_start < n-1; left_start += 2*curr_size)
-            {
-                int mid = left_start + curr_size - 1;
-                int right_end = Math.min(left_start + 2*curr_size - 1, n-1);
-                merge(a, left_start, mid, right_end);
-            }
-        }
-        return a;
+       int length = a.length;
+       double [] aux = new double[length];
+       for(int count =1;count<length;count = count+count){
+           for(int bottom = 0;bottom < (length-count);bottom += (count+count)){
+               merge(a,aux,bottom,bottom+count-1,Math.min((bottom+count+count)-1,length-1));
+           }
+       }
+       return a;
     }//end mergesortIterative
 
-    static void merge(double a[], int l, int m, int r) {
-        int i, j, k;
-        int n1 = m - l + 1;
-        int n2 = r - m;
-        double L[] = new double[n1];
-        double R[] = new double[n2];
-        for (i = 0; i < n1; i++)
-            L[i] = a[l + i];
-        for (j = 0; j < n2; j++)
-            R[j] = a[m + 1 + j];
-        i = 0;
-        j = 0;
-        k = l;
-        while (i < n1 && j < n2) {
-            if (L[i] <= R[j]) {
-                a[k] = L[i];
-                i++;
-            } else {
-                a[k] = R[j];
-                j++;
+    static void merge(double a[], double[] aux,int bottom,int mid,int top) {
+        int i = bottom;
+        int j = mid+1;
+        for(int k = bottom;k<= top;k++){
+            aux[k] = a[k];
+        }
+        for(int k = bottom;k <= top; k++){
+            if (i >mid){
+                a[k] = aux[j++];
             }
-            k++;
+            else if(j>top){
+                a[k] = aux[i++];
+            }
+            else if(less(aux[j],aux[i])){
+                a[k] = aux[j++];
+            }
+            else{
+                a[k] = aux[i++];
+            }
         }
-        while (i < n1) {
-            a[k] = L[i];
-            i++;
-            k++;
-        }
-        while (j < n2) {
-            a[k] = R[j];
-            j++;
-            k++;
-        }
+    }
+
+    static boolean less(double a, double b){
+        if (b>a) return true;
+        return false;
     }
 
         /**

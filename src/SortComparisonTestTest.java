@@ -2,10 +2,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNull;
 
 //-------------------------------------------------------------------------
 /**
@@ -115,8 +120,8 @@ public class SortComparisonTestTest
     }
     //  add more tests here. Each line of code and ech decision in Collinear.java should
     // be executed at least once from at least one test.
-
     // ----------------------------------------------------------
+    public ArrayList<Long> timer = new
     /**
      *  Main Method.
      *  Use this main method to create the experiments needed to answer the experimental performance questions of this assignment.
@@ -124,7 +129,29 @@ public class SortComparisonTestTest
      */
     public static void main(String[] args)
     {
-        //TODO: implement this method
+        File file = new File("/home/foesa/Documents/numbers10.txt");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String curr = null;
+        int i =0;
+        double []a = new double[10];
+        while((curr = reader.readLine())!=null){
+            double num = Double.parseDouble(curr);
+            a[i] = num;
+            i++;
+        }
+        ArrayList<Long> times = new ArrayList<Long>();
+        int index = 0;
+        long start = null;
+        long end = null;
+        long duration = null;
+        SortComparison sorter = new SortComparison();
+        for(int count =0;count <4;count++){
+            start = System.nanoTime();
+            sorter.insertionSort(a);
+            end = System.nanoTime();
+            duration = end-start;
+            A
+        }
     }
 
 }
