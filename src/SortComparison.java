@@ -108,14 +108,14 @@ class SortComparison {
         if(a.length == 0){
             return null;
         }
-       int length = a.length;
-       double [] aux = new double[length];
-       for(int count =1;count<length;count = count+count){
-           for(int bottom = 0;bottom < (length-count);bottom += (count+count)){
-               merge(a,aux,bottom,bottom+count-1,Math.min((bottom+count+count)-1,length-1));
-           }
-       }
-       return a;
+        int length = a.length;
+        double[] aux = new double[length];
+        for (int count = 1; count < length; count = count + count) {
+            for (int bottom = 0; bottom < (length - count); bottom += (count + count)) {
+                merge(a, aux, bottom, bottom + count - 1, Math.min((bottom + count + count) - 1, length - 1));
+            }
+        }
+        return a;
     }//end mergesortIterative
 
     static void merge(double a[], double[] aux,int bottom,int mid,int top) {
@@ -145,13 +145,13 @@ class SortComparison {
         return false;
     }
 
-        /**
-         * Sorts an array of doubles using recursive implementation of Merge Sort.
-         * This method is static, thus it can be called as SortComparison.sort(a)
-         *
-         * @param a: An unsorted array of doubles.
-         * @return after the method returns, the array must be in ascending sorted order.
-         */
+    /**
+     * Sorts an array of doubles using recursive implementation of Merge Sort.
+     * This method is static, thus it can be called as SortComparison.sort(a)
+     *
+     * @param a: An unsorted array of doubles.
+     * @return after the method returns, the array must be in ascending sorted order.
+     */
     static double[] mergeSortRecursive(double a[]) {
         if(a.length == 0){
             return null;
@@ -180,22 +180,13 @@ class SortComparison {
     private static void merger(double arr[], int left, int m, int right){
         int n1 = m - left + 1;
         int n2 = right - m;
-
-
         double L[] = new double[n1];
         double R[] = new double [n2];
-
-
         for (int i=0; i<n1; ++i)
             L[i] = arr[left + i];
         for (int j=0; j<n2; ++j)
             R[j] = arr[m + 1+ j];
-
-
-
         int i = 0, j = 0;
-
-
         int k = left;
         while (i < n1 && j < n2)
         {
@@ -270,36 +261,36 @@ class SortComparison {
             sorter.insertionSort(numbers);
             end = System.nanoTime();
             duration = end-start;
-            times.add(duration);
+            times.add(duration / 3);
             start = System.nanoTime();
             sorter.quickSort(numbers);
             end = System.nanoTime();
             duration = end-start;
-            times.add(duration);
+            times.add(duration / 3);
             start = System.nanoTime();
             sorter.mergeSortIterative(numbers);
             end = System.nanoTime();
             duration = end-start;
-            times.add(duration);
+            times.add(duration / 3);
             start = System.nanoTime();
             sorter.mergeSortRecursive(numbers);
             end = System.nanoTime();
             duration = end-start;
-            times.add(duration);
+            times.add(duration / 3);
             start = System.nanoTime();
             sorter.selectionSort(numbers);
             end = System.nanoTime();
             duration = end-start;
-            times.add(duration);
+            times.add(duration / 3);
         }
         return times;
     }
 
     public static void main(String[] args) {
         int i =0;
-        double []a = new double[10];
+        double[] a = new double[1000];
         try{
-            BufferedReader reader = new BufferedReader( new FileReader("/home/foesa/Documents/numbers10.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("/home/foesa/Documents/numbersSorted1000.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 double num = Double.parseDouble(line);
