@@ -314,45 +314,30 @@ class SortComparison {
             e.printStackTrace();
         }
         ArrayList<Long> times = timer(a);
-        Long [] finalTimes = new Long[5];
-        for(int count =0;count<3;count++){
-            if(count<=0){
-                finalTimes[0] =+ times.get(count*5);
-            }
+        int [] finalTimes = new int[5];
+        for(int count =1;count<4;count++){
+                finalTimes[0] += Math.toIntExact(times.get((count*5)-5)) ;
+            System.out.print(finalTimes[0]+"/");
         }
-        for(int count =0;count<3;count++){
-            if(count ==0){
-                finalTimes[1] =+ times.get(1);
-            }
-            else{
-                finalTimes[1] =+ times.get((count*5)-1);
-            }
+        for(int count =1;count<4;count++){
+                finalTimes[1] += Math.toIntExact(times.get((count*5)-4));
         }
-        for(int count =0;count<3;count++){
-            if(count ==0){
-                finalTimes[2] =+ times.get(2);
-            }
-            else {
-                finalTimes[2] =+ times.get((count*5)-2);
-            }
+        for(int count =1;count<4;count++){
+                finalTimes[2] += Math.toIntExact(times.get((count*5)-3));
         }
-        for(int count =0;count<3;count++){
-            if(count == 0){
-                finalTimes[3] =+ times.get(3);
-            }
-            else{
-                finalTimes[3] =+ times.get((count*5)-3);
-            }
+        for(int count =1;count<4;count++){
+                finalTimes[3] += Math.toIntExact(times.get((count*5)-2));
         }
-        for(int count =0;count<3;count++){
-            if(count ==0){
-                finalTimes[4] =+ times.get(4);
-            }
-            finalTimes[4] =+ times.get((count*5)-4);
+        for(int count =1;count<4;count++){
+            finalTimes[4] += Math.toIntExact(times.get((count*5)-1));
         }
-        for(Long time:finalTimes){
+        for (Long time: times){
+            System.out.println(" "+time);
+        }
+        for(int time:finalTimes){
             System.out.print(" "+time);
         }
+
     }
 
 }
