@@ -26,22 +26,34 @@ public class CompetitionDijkstra {
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
      */
+    int noOfIntersections;
+    int noOfStreets;
+    Graph graph = null;
+    int p1,p2,p3;
     CompetitionDijkstra (String filename, int sA, int sB, int sC){
-        int noOfIntersections;
-        int noOfStreets;
+        this.p1 = sA;
+        this.p2 = sB;
+        this.p3 = sC;
         try{
             BufferedReader reader = new BufferedReader(new FileReader("/home/foesa/Documents/numbersSorted1000.txt"));
             String line;
             int lineNum = 1;
             while ((line = reader.readLine()) != null) {
                 if(lineNum ==1 ){
-
+                    String[] values = line.split(" ");
+                    this.noOfIntersections = Integer.parseInt(values[0]);
+                    this.graph = new Graph(noOfIntersections);
                 }
                 else if(lineNum ==2){
-
+                    String [] values = line.split(" ");
+                    this.noOfStreets = Integer.parseInt(values[0]);
                 }
                 else{
-
+                    String[] values = line.split(" ");
+                    int source = Integer.parseInt(values[0]);
+                    int dest = Integer.parseInt(values[1]);
+                    double weight = Double.parseDouble(values[3]);
+                    this.graph.addEdge(source,dest,weight);
                 }
             }
         }
