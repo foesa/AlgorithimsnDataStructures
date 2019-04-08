@@ -70,9 +70,8 @@ public class CompetitionDijkstra {
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition(){
+        int[] times = new int[this.noOfIntersections*(this.noOfIntersections-1)];
 
-        //TO DO
-        return -1;
     }
 
 }
