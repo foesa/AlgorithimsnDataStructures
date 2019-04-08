@@ -19,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Stack;
 
 public class CompetitionDijkstra {
 
@@ -30,6 +32,10 @@ public class CompetitionDijkstra {
     int noOfStreets;
     Graph graph = null;
     int p1,p2,p3;
+    private  double[] distTo;
+    private Graph.Edge[] edges;
+    private PriorityQueue<Double> pq;
+    int source;
     CompetitionDijkstra (String filename, int sA, int sB, int sC){
         this.p1 = sA;
         this.p2 = sB;
@@ -63,16 +69,88 @@ public class CompetitionDijkstra {
         catch (IOException e) {
             e.printStackTrace();
         }
+        for(int count =0;count<graph.adjacencyList.length;count++){
+            for(Graph.Edge e: graph.adjacencyList[count]){
+                if(e.weight < 0){
+                    throw new IllegalArgumentException("edge " + e + " has negative weight");
+                }
+            }
+        }
+        distTo = new double[graph.vertices];
+        edges = new Graph.Edge[graph.vertices];
+
+
+
+    }
+    private void relax(Graph.Edge e) {
+        int v = e.source, w = e.dest;
+        if (distTo[w] > distTo[v] + e.weight) {
+            distTo[w] = distTo[v] + e.weight;
+            edges[w] = e;
+            if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
+            else                pq.insert(w, distTo[w]);
+        }
     }
 
+    public double distTo(int v) {
+        validateVertex(v);
+        return distTo[v];
+    }
+
+    public boolean hasPathTo(int v) {
+        validateVertex(v);
+        return distTo[v] < Double.POSITIVE_INFINITY;
+    }
+
+    public Iterable<Graph.Edge> pathTo(int v) {
+        validateVertex(v);
+        if (!hasPathTo(v)) return null;
+        Stack<Graph.Edge> path = new Stack<Graph.Edge>();
+        for (Graph.Edge e = edges[v]; e != null; e = edges[e.source]) {
+            path.push(e);
+        }
+        return path;
+    }
+
+    private void validateVertex(int v) {
+        int V = distTo.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
+    
 
     /**
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition(){
+        double slowest = -1;
+        int curAvg = 0;
+        for(int s =0;s<graph.vertices+1;s++){
+            source = s;
+            for (int v = 0; v < graph.vertices; v++)
+                distTo[v] = Double.POSITIVE_INFINITY;
+            distTo[source] = 0.0;
 
-        //TO DO
-        return -1;
+            pq = new PriorityQueue<Double>(graph.vertices);
+            pq.insert(source, distTo[source]);
+            while (!pq.isEmpty()) {
+                int v = pq.delMin();
+                for (Graph.Edge e : graph.adjacencyList[v])
+                    relax(e);
+            }
+
+            Arrays.sort(distTo);
+
+            if(distTo[distTo.length-1] > slowest) slowest = distTo[distTo.length-1];
+        }
+
+        int[] speeds = {p1,p2,p3};
+        Arrays.sort(speeds);
+        slowest = slowest*100;
+         double total = slowest/(double) speeds[0];
+         int rounded = (int)Math.ceil(total);
+         return rounded;
     }
 
 }
