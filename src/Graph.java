@@ -19,7 +19,6 @@ public class Graph {
         adjacencyList = new LinkedList[vertices];
         for(int i = 0; i < vertices; i++){
             adjacencyList[i] = new LinkedList<>();
-            System.out.print("pussy");
         }
     }
 
@@ -27,4 +26,5 @@ public class Graph {
         Edge newEdge = new Edge(source,dest,weight);
         adjacencyList[source].addFirst(newEdge);
     }
+
 }
