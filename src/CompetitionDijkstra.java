@@ -149,7 +149,7 @@ public class CompetitionDijkstra {
 
         int[] speeds = {p1,p2,p3};
         Arrays.sort(speeds);
-        slowest = slowest*100;
+        slowest = slowest*1000;
          double total = slowest/(double) speeds[0];
          int rounded = (int)Math.ceil(total);
          return rounded;

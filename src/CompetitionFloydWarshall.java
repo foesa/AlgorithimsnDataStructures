@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class CompetitionFloydWarshall {
 
@@ -26,10 +27,15 @@ public class CompetitionFloydWarshall {
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
      */
-    double[][] adjacencyMatrix;
-    int noOfIntersections;
-    int noOfStreets;
+    private double[][] adjacencyMatrix;
+     private int noOfIntersections = 0;
+    private int noOfStreets;
+    private int p1,p2,p3;
     CompetitionFloydWarshall (String filename, int sA, int sB, int sC){
+
+        p1 = sA;
+        p2 = sB;
+        p3 = sC;
 
         try{
             BufferedReader reader = new BufferedReader(new FileReader("/home/foesa/Documents/numbersSorted1000.txt"));
@@ -60,18 +66,44 @@ public class CompetitionFloydWarshall {
         catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
     }
-    double distArr [][] = new double[noOfIntersections][noOfIntersections];
-    
 
 
     /**
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition(){
+        for (int k = 0; k < noOfIntersections; k++)
+        {
+            for (int i = 0; i < noOfIntersections; i++)
+            {
+                for (int j = 0; j < noOfIntersections; j++)
+                {
+                    if (adjacencyMatrix[i][k] + adjacencyMatrix[k][j] < adjacencyMatrix[i][j])
+                        adjacencyMatrix[i][j] = adjacencyMatrix[i][k] + adjacencyMatrix[k][j];
+                }
+            }
+        }
+        double max =0;
+        for(int i =0;i<noOfIntersections;i++){
+            for(int j=0;j<noOfIntersections;j++){
+                if(adjacencyMatrix[i][j]> max){
+                    max = adjacencyMatrix[i][j];
+                }
+            }
+        }
 
-        //TO DO
-        return -1;
+        int[] speeds = {p1,p2,p3};
+        Arrays.sort(speeds);
+        max = max*1000;
+        double total = max/(double) speeds[0];
+        int rounded = (int)Math.ceil(total);
+        return rounded;
+    }
+
     }
 
 }
