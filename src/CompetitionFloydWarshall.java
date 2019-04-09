@@ -15,16 +15,54 @@
  * This class implements the competition using Floyd-Warshall algorithm
  */
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class CompetitionFloydWarshall {
 
     /**
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
      */
+    double[][] adjacencyMatrix;
+    int noOfIntersections;
+    int noOfStreets;
     CompetitionFloydWarshall (String filename, int sA, int sB, int sC){
 
-        //TODO
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("/home/foesa/Documents/numbersSorted1000.txt"));
+            String line;
+            int lineNum = 1;
+            while ((line = reader.readLine()) != null) {
+                if(lineNum ==1 ){
+                    String[] values = line.split(" ");
+                    this.noOfIntersections = Integer.parseInt(values[0]);
+                    this.adjacencyMatrix = new double[noOfIntersections][noOfIntersections];
+                }
+                else if(lineNum ==2){
+                    String [] values = line.split(" ");
+                    this.noOfStreets = Integer.parseInt(values[0]);
+                }
+                else{
+                    String[] values = line.split(" ");
+                    int source = Integer.parseInt(values[0]);
+                    int dest = Integer.parseInt(values[1]);
+                    double weight = Double.parseDouble(values[3]);
+                    this.adjacencyMatrix[source][dest] = weight;
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+    double distArr [][] = new double[noOfIntersections][noOfIntersections];
+    
 
 
     /**
