@@ -95,15 +95,11 @@ public class CompetitionFloydWarshall {
                 }
             }
         }
-
         int[] speeds = {p1,p2,p3};
         Arrays.sort(speeds);
         max = max*1000;
         double total = max/(double) speeds[0];
         int rounded = (int)Math.ceil(total);
         return rounded;
-    }
-
-    }
-
+        }
 }
