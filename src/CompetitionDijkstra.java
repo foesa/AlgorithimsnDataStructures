@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.Stack;
 
 public class CompetitionDijkstra {
-
     /**
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
@@ -40,47 +39,54 @@ public class CompetitionDijkstra {
         this.p1 = sA;
         this.p2 = sB;
         this.p3 = sC;
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader("/home/foesa/Documents/numbersSorted1000.txt"));
-            String line;
-            int lineNum = 1;
-            while ((line = reader.readLine()) != null) {
-                if(lineNum ==1 ){
-                    String[] values = line.split(" ");
-                    this.noOfIntersections = Integer.parseInt(values[0]);
-                    this.graph = new Graph(noOfIntersections);
+        if(filename != null){
+            try{
+                BufferedReader reader = new BufferedReader(new FileReader(filename));
+                String line;
+                int lineNum = 1;
+                while ((line = reader.readLine()) != null) {
+                    if(lineNum ==1 ){
+                        String[] values = line.split(" ");
+                        this.noOfIntersections = Integer.parseInt(values[0]);
+                        this.graph = new Graph(noOfIntersections);
+                    }
+                    else if(lineNum ==2){
+                        String [] values = line.split(" ");
+                        this.noOfStreets = Integer.parseInt(values[0]);
+                    }
+                    else{
+                        String[] values = line.trim().split("\\s+");
+                        if(line.length()>0){
+                            String[] vals = new String[3];
+                            if(values.length>1) {
+                                int src = Integer.parseInt(values[0]);
+                                int dest = Integer.parseInt(values[1]);
+                                double weight = Double.parseDouble(values[2]);
+                                this.graph.addEdge(src, dest, weight);
+                            }
+                        }
+                    }
+                    lineNum++;
                 }
-                else if(lineNum ==2){
-                    String [] values = line.split(" ");
-                    this.noOfStreets = Integer.parseInt(values[0]);
+                for(int count =0;count<graph.adjacencyList.length;count++){
+                    for(Graph.Edge e: graph.adjacencyList[count]){
+                        if(e.weight < 0){
+                            throw new IllegalArgumentException("edge " + e + " has negative weight");
+                        }
+                    }
                 }
-                else{
-                    String[] values = line.split(" ");
-                    int source = Integer.parseInt(values[0]);
-                    int dest = Integer.parseInt(values[1]);
-                    double weight = Double.parseDouble(values[3]);
-                    this.graph.addEdge(source,dest,weight);
-                }
+                distTo = new double[graph.vertices];
+                edges = new Graph.Edge[graph.vertices];
             }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        for(int count =0;count<graph.adjacencyList.length;count++){
-            for(Graph.Edge e: graph.adjacencyList[count]){
-                if(e.weight < 0){
-                    throw new IllegalArgumentException("edge " + e + " has negative weight");
-                }
+            catch (FileNotFoundException e) {
+                graph = null;
             }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            graph = null;
         }
-        distTo = new double[graph.vertices];
-        edges = new Graph.Edge[graph.vertices];
-
 
 
     }
@@ -126,9 +132,13 @@ public class CompetitionDijkstra {
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition(){
+        if(graph == null){
+            return -1;
+        }
+
         double slowest = -1;
         int curAvg = 0;
-        for(int s =0;s<graph.vertices+1;s++){
+        for(int s =0;s<graph.vertices;s++){
             source = s;
             for (int v = 0; v < graph.vertices; v++)
                 distTo[v] = Double.POSITIVE_INFINITY;
@@ -141,12 +151,12 @@ public class CompetitionDijkstra {
                 for (Graph.Edge e : graph.adjacencyList[v])
                     relax(e);
             }
-
             Arrays.sort(distTo);
-
             if(distTo[distTo.length-1] > slowest) slowest = distTo[distTo.length-1];
         }
-
+        if(slowest == Double.POSITIVE_INFINITY){
+            return -1;
+        }
         int[] speeds = {p1,p2,p3};
         Arrays.sort(speeds);
         slowest = slowest*1000;

@@ -27,47 +27,49 @@ public class CompetitionFloydWarshall {
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
      */
-    private double[][] adjacencyMatrix;
+    private double[][] adjacencyMatrix = null;
      private int noOfIntersections = 0;
     private int noOfStreets;
     private int p1,p2,p3;
     CompetitionFloydWarshall (String filename, int sA, int sB, int sC){
-
         p1 = sA;
         p2 = sB;
         p3 = sC;
 
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader("/home/foesa/Documents/numbersSorted1000.txt"));
-            String line;
-            int lineNum = 1;
-            while ((line = reader.readLine()) != null) {
-                if(lineNum ==1 ){
-                    String[] values = line.split(" ");
-                    this.noOfIntersections = Integer.parseInt(values[0]);
-                    this.adjacencyMatrix = new double[noOfIntersections][noOfIntersections];
-                }
-                else if(lineNum ==2){
-                    String [] values = line.split(" ");
-                    this.noOfStreets = Integer.parseInt(values[0]);
-                }
-                else{
-                    String[] values = line.split(" ");
-                    int source = Integer.parseInt(values[0]);
-                    int dest = Integer.parseInt(values[1]);
-                    double weight = Double.parseDouble(values[3]);
-                    this.adjacencyMatrix[source][dest] = weight;
+        if(filename != null){
+            try{
+                BufferedReader reader = new BufferedReader(new FileReader(filename));
+                String line;
+                int lineNum = 1;
+                while ((line = reader.readLine()) != null) {
+                    if(lineNum ==1 ){
+                        String[] values = line.split(" ");
+                        this.noOfIntersections = Integer.parseInt(values[0]);
+                        this.adjacencyMatrix = new double[noOfIntersections][noOfIntersections];
+                    }
+                    else if(lineNum ==2){
+                        String [] values = line.split(" ");
+                        this.noOfStreets = Integer.parseInt(values[0]);
+                    }
+                    else{
+                        String[] values = line.trim().split("\\s+");
+                        int source = Integer.parseInt(values[0]);
+                        int dest = Integer.parseInt(values[1]);
+                        double weight = Double.parseDouble(values[2]);
+                        this.adjacencyMatrix[source][dest] = weight;
+                    }
+                    lineNum++;
                 }
             }
+            catch (FileNotFoundException e) {
+                adjacencyMatrix = null;
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            adjacencyMatrix = null;
         }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
 
     }
 
@@ -76,6 +78,9 @@ public class CompetitionFloydWarshall {
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition(){
+        if(adjacencyMatrix == null){
+            return -1;
+        }
         for (int k = 0; k < noOfIntersections; k++)
         {
             for (int i = 0; i < noOfIntersections; i++)
@@ -95,6 +100,7 @@ public class CompetitionFloydWarshall {
                 }
             }
         }
+
         int[] speeds = {p1,p2,p3};
         Arrays.sort(speeds);
         max = max*1000;
