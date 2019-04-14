@@ -26,6 +26,7 @@ public class CompetitionDijkstra {
     /**
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
+     * @Author Efeosa Louis Eguavoen
      */
     int noOfIntersections;
     int noOfStreets;

@@ -26,6 +26,7 @@ public class CompetitionFloydWarshall {
     /**
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
+     * @author Efeosa Louis Eguavoen
      */
     private double[][] adjacencyMatrix = null;
      private int noOfIntersections = 0;
@@ -46,6 +47,14 @@ public class CompetitionFloydWarshall {
                         String[] values = line.split(" ");
                         this.noOfIntersections = Integer.parseInt(values[0]);
                         this.adjacencyMatrix = new double[noOfIntersections][noOfIntersections];
+                        for(int count =0;count<noOfIntersections;count++){
+                            for(int count2 =0;count2<noOfIntersections;count2++){
+                                if(count == count2){
+                                    this.adjacencyMatrix[count][count2]=0;
+                                }else
+                                    this.adjacencyMatrix[count][count2] = Double.POSITIVE_INFINITY;
+                            }
+                        }
                     }
                     else if(lineNum ==2){
                         String [] values = line.split(" ");
@@ -53,12 +62,18 @@ public class CompetitionFloydWarshall {
                     }
                     else{
                         String[] values = line.trim().split("\\s+");
-                        int source = Integer.parseInt(values[0]);
-                        int dest = Integer.parseInt(values[1]);
-                        double weight = Double.parseDouble(values[2]);
-                        this.adjacencyMatrix[source][dest] = weight;
+                        if(line.length()>0) {
+                            if (values.length > 1) {
+                                int source = Integer.parseInt(values[0]);
+                                int dest = Integer.parseInt(values[1]);
+                                double weight = Double.parseDouble(values[2]);
+                                this.adjacencyMatrix[source][dest] = weight;
+                            }
+                        }
                     }
                     lineNum++;
+
+
                 }
             }
             catch (FileNotFoundException e) {
@@ -75,10 +90,19 @@ public class CompetitionFloydWarshall {
 
 
     /**
-     * @return int: minimum minutes that will pass before the three contestants can meet
+     * @return int: minimum minutes that will pass before  the three contestants can meet
      */
     public int timeRequiredforCompetition(){
         if(adjacencyMatrix == null){
+            return -1;
+        }
+        int inf = 0;
+        for(int count =0;count<noOfIntersections;count++){
+            if(adjacencyMatrix[count][noOfIntersections-1] == Double.POSITIVE_INFINITY){
+                inf++;
+            }
+        }
+        if(inf == noOfIntersections-1){
             return -1;
         }
         for (int k = 0; k < noOfIntersections; k++)
@@ -95,7 +119,7 @@ public class CompetitionFloydWarshall {
         double max =0;
         for(int i =0;i<noOfIntersections;i++){
             for(int j=0;j<noOfIntersections;j++){
-                if(adjacencyMatrix[i][j]> max){
+                if(adjacencyMatrix[i][j]> max && adjacencyMatrix[i][j] != Double.POSITIVE_INFINITY){
                     max = adjacencyMatrix[i][j];
                 }
             }

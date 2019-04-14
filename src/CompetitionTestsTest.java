@@ -2,6 +2,25 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+
+/*
+  For Dijkstra's I used an adjacency list to represent the graph as it has better space performance,
+  but checking if a vertice has an edge to another vertice isn't as efficent as an adjacency matrix.
+  For FloydWarshall, I used an adjacency matrix which uses(O(V^2)) space but it requires more array access' in total,
+  so being able to check if a edge exists between 2 vertices can be done in (O(1)) time.
+
+  For checking for the shortest path in Dijkstra's I also used a Priority Queue to store the shortest path for each node to every other node.
+
+  In terms of performance, Djikstra's is a single source shortest path algorithm (O(E log V)) but since we want to find the shortest path for every node to every
+  other node, the worst case performance becomes (O(V^3 log V)).
+  As for Floyd Warshall, it's all pairs shortest algorithm which means it computes the shortest path for every node to every other node, giving us a constant time complexity of
+  O(V^3). If we only want the shortest path for a specific node to any other node djikstras is better but if we want all paths, Floyd Warshall works better.
+
+  The density of the graph if sparsely populated works in the favour of Dijkstra's as the total amount of relaxes needed is reduced in a sparsely populated graph,
+  as well as the space usage is reduced due to using an adjacency list being used.
+  As for Floyd Warshall, A sparsely populated graph works against it as the total complexity is the same regardless of the number of vertices, but as a result of this,
+  densely populated graphs take the same amount of time to compute the paths as a sparsely populated one.
+ */
 public class CompetitionTestsTest {
 
     @Test
